@@ -2,6 +2,7 @@
 #include <fcntl.h>
 #include <unistd.h>
 #include "get_next_line.h"
+#include <stdlib.h>
 
 int
 main(void)
@@ -10,15 +11,16 @@ main(void)
 	int			ret;
 	int			fd;
 
-	if (!(fd = open("test", O_RDONLY)))
+	if (!(fd = open("test2", O_RDONLY)))
 	{
 		printf("Error bitch !\n");
 		return (-1);
 	}
 	while ((ret = get_next_line(fd, &buf)) > 0)
 	{
-		printf("ret = %d\n", ret);
 		printf("%s\n", buf);
+		free(buf);
+		buf = NULL;
 	}
 	close(fd);
 	return (0);

@@ -1,7 +1,7 @@
 #include <libft.h>
 #include <stdlib.h>
 
-char					*lst_to_char(t_list *lst, const int size)
+char					*lst_to_char(t_list *lst)
 {
 	t_list				*lstwalker;
 	char				*tmp;
@@ -9,7 +9,7 @@ char					*lst_to_char(t_list *lst, const int size)
 	int					i;
 	int					j;
 
-	if (!(ret = (char *)malloc(sizeof(char) * (size + 1))))
+	if (!(ret = (char *)malloc(sizeof(char) * (lst_csize(lst) + 1))))
 		return (NULL);
 	lstwalker = lst;
 	i = 0;
