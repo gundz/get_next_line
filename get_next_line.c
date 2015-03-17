@@ -11,6 +11,7 @@ char				*store(const int fd, int *const size)
 	int				n;
 
 	lst = NULL;
+	printf("%d\n", fd);
 	while ((n = read(fd, &buf, BUF_SIZE)))
 	{
 		if (n <= -1)
@@ -20,6 +21,7 @@ char				*store(const int fd, int *const size)
 	}
 	*size = lst_csize(lst);
 	tmp = lst_to_char(lst, *size);
+	alst_show(lst);
 	//free_lst
 	return (tmp);
 }
@@ -38,7 +40,9 @@ int					get_next_line(int const fd, char **line)
 	}
 	if (i >= size)
 	{
-		free(tmp);
+		if (tmp != NULL)
+			free(tmp);
+		tmp = NULL;
 		return (0);
 	}
 	j = i;
