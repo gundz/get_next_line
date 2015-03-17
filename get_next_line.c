@@ -56,15 +56,8 @@ int					get_next_line(int const fd, char **line)
 		return (0);
 	}
 	j = i;
-	while (tmp[j] != '\n')
-	{
-		if (tmp[j] == '\0')
-		{
-			*line = ft_strsub(tmp, i, j - i);
-			return (0);
-		}
+	while (tmp[j] != '\n' && tmp[j] != '\0')
 		j++;
-	}
 	*line = ft_strsub(tmp, i, j - i);
 	i = j + 1;
 	return (1);

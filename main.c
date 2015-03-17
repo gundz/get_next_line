@@ -4,27 +4,27 @@
 #include "get_next_line.h"
 #include <stdlib.h>
 
-// int
-// main(void)
-// {
-// 	char		*buf;
-// 	int			ret;
-// 	int			fd;
+int
+main(void)
+{
+	char		*buf;
+	int			ret;
+	int			fd;
 
-// 	if (!(fd = open("get_next_line.c", O_RDONLY)))
-// 	{
-// 		printf("Error bitch !\n");
-// 		return (-1);
-// 	}
-// 	while ((ret = get_next_line(fd, &buf)) > 0)
-// 	{
-// 		printf("%s\n", buf);
-// 		free(buf);
-// 		buf = NULL;
-// 	}
-// 	close(fd);
-// 	return (0);
-// }
+	if (!(fd = open("get_next_line.c", O_RDONLY)))
+	{
+		printf("Error bitch !\n");
+		return (-1);
+	}
+	while ((ret = get_next_line(fd, &buf)) > 0)
+	{
+		printf("%s\n", buf);
+		free(buf);
+		buf = NULL;
+	}
+	close(fd);
+	return (0);
+}
 
 /*#include <string.h>
 int
@@ -51,7 +51,7 @@ main(void)
 		printf("ok2\n");
 	return (0);
 }*/
-
+/*
 int
 main(void)
 {
@@ -60,4 +60,4 @@ main(void)
 	while (get_next_line(0, &line) > 0)
 		printf("%s\n", line);
 	return (0);
-}
+}*/
