@@ -6,7 +6,7 @@
 #    By: fgundlac <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2013/12/11 02:34:50 by fgundlac          #+#    #+#              #
-#    Updated: 2015/03/17 16:11:13 by fgundlac         ###   ########.fr        #
+#    Updated: 2015/03/17 21:03:31 by fgundlac         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,7 @@ PATH_OBJ = obj
 PATH_SRC = srcs
 
 SRC =	\
+		ft_strlen.c \
 		ft_strsub.c \
 		ft_strdup.c \
 

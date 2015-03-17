@@ -1,17 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fgundlac <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2015/03/17 21:00:25 by fgundlac          #+#    #+#             */
+/*   Updated: 2015/03/17 21:00:34 by fgundlac         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <libft.h>
 #include <unistd.h>
 #include <stdlib.h>
 #include "get_next_line.h"
-
-int					ft_strlen(char *str)
-{
-	int				len;
-
-	len = 0;
-	while (str[len] != '\0')
-		len++;
-	return (len);
-}
 
 char				*store(const int fd)
 {
@@ -33,12 +35,23 @@ char				*store(const int fd)
 	return (tmp);
 }
 
+int					get_line(char *tmp, char **line, int *i)
+{
+	int				j;
+
+	j = *i;
+	while (tmp[j] != '\n' && tmp[j] != '\0')
+		j++;
+	*line = ft_strsub(tmp, *i, j - *i);
+	*i = j + 1;
+	return (1);
+}
+
 int					get_next_line(int const fd, char **line)
 {
 	static char		*tmp;
 	static int		i = 0;
 	static int		size = 0;
-	int				j = 0;
 
 	if (line == ((void *)0))
 		return (-1);
@@ -55,10 +68,5 @@ int					get_next_line(int const fd, char **line)
 		tmp = NULL;
 		return (0);
 	}
-	j = i;
-	while (tmp[j] != '\n' && tmp[j] != '\0')
-		j++;
-	*line = ft_strsub(tmp, i, j - i);
-	i = j + 1;
-	return (1);
+	return (get_line(tmp, line, &i));
 }

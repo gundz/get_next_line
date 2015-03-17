@@ -1,8 +1,21 @@
-#ifndef		LIBFT_H
-# define	LIBFT_H
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   libft.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fgundlac <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2015/03/17 21:02:52 by fgundlac          #+#    #+#             */
+/*   Updated: 2015/03/17 21:02:59 by fgundlac         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef LIBFT_H
+# define LIBFT_H
 
 # include <stddef.h>
 
+int					ft_strlen(const char *const str);
 char				*ft_strsub(char const *s, unsigned int start, size_t len);
 char				*ft_strdup(const char *const str);
 
