@@ -31,7 +31,7 @@ char				*store(const int fd)
 		lst_push_back(&lst, ft_strdup(buf));
 	}
 	tmp = lst_to_char(lst);
-	//free_lst
+	lst_free(lst, 1);
 	return (tmp);
 }
 

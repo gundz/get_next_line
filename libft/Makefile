@@ -25,6 +25,7 @@ SRC =	\
 SRC +=	\
 		lst_create_elem.c \
 		lst_push_back.c \
+		lst_free.c \
 		lst_csize.c \
 		lst_to_char.c \
 
