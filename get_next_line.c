@@ -15,58 +15,96 @@
 #include <stdlib.h>
 #include "get_next_line.h"
 
-char				*store(const int fd)
+#include <stdio.h>
+int					find_n(t_list *lst, int eof)
 {
-	char			buf[BUF_SIZE + 1];
-	char			*tmp;
-	t_list			*lst;
-	int				n;
+	int				i;
+	int				j;
+	t_list			*lstwalker;
+	char			*str;
 
-	lst = NULL;
-	while ((n = read(fd, &buf, BUF_SIZE)))
+	i = 0;
+	lstwalker = lst;
+	while (lstwalker != NULL)
 	{
-		if (n <= -1)
-			return (NULL);
-		buf[n] = '\0';
-		lst_push_back(&lst, ft_strdup(buf));
+		str = lstwalker->data;
+		j = 0;
+		while (str[j] != '\0')
+		{
+			if (str[j] == '\n')
+				return (i + j);
+			j++;
+		}
+		if (lstwalker->next == NULL)
+			break ;
+		lstwalker = lstwalker->next;
+		i += j;
 	}
-	tmp = lst_to_char(lst);
-	lst_free(lst, 1);
-	return (tmp);
+	if (eof == 0)
+		return (lst_csize(lst));
+	if (str[j] == '\0')
+		return (-1);
+	return (i);
 }
 
-int					get_line(char *tmp, char **line, int *i)
+char				*ft_strsub(char const *s, unsigned int start, size_t len)
 {
-	int				j;
+	char			*fresh;
+	size_t			i;
 
-	j = *i;
-	while (tmp[j] != '\n' && tmp[j] != '\0')
-		j++;
-	*line = ft_strsub(tmp, *i, j - *i);
-	*i = j + 1;
-	return (1);
+	if (!(fresh = (char *)malloc(sizeof(char) * (len + 1))))
+		return (NULL);
+	i = 0;
+	while (i < len)
+	{
+		fresh[i] = s[i + start];
+		i++;
+	}
+	fresh[i] = '\0';
+	return (fresh);
+}
+
+char				*get_line(t_list **lst, int *n)
+{
+	char			*ret;
+	char			*tmp;
+	int				size;
+	int				n2;
+
+	tmp = lst_to_char(*lst);
+	n2 = find_n(*lst, *n);
+	lst_free(lst, 1);
+	ret = ft_strsub(tmp, 0, n2);
+	if (tmp[n2] == '\n')
+		n2++;
+	size = ft_strlen(tmp + n2);
+	lst_push_back(lst, ft_strsub(tmp + n2, 0, size));
+	free(tmp);
+	if (n2 >= 1)
+		*n = 1;
+	else
+		*n = 0;
+	return (ret);
 }
 
 int					get_next_line(int const fd, char **line)
 {
-	static char		*tmp;
-	static int		i = 0;
-	static int		size = 0;
+	int				n;
+	int				n2;
+	char			buf[BUFF_SIZE + 1];
+	static t_list	*lst = NULL;
 
-	if (line == ((void *)0))
+	n = 0;
+	n2 = 0;
+	while ((n = read(fd, &buf, BUFF_SIZE)) > 0)
+	{
+		buf[n] = '\0';
+		lst_push_back(&lst, ft_strdup(buf));
+		if (find_n(lst, n) >= 0)
+			break ;
+	}
+	if (n == -1)
 		return (-1);
-	if (size == 0)
-	{
-		if ((tmp = store(fd)) == NULL)
-			return (-1);
-		size = ft_strlen(tmp) + 1;
-	}
-	if (i >= size)
-	{
-		if (tmp != NULL)
-			free(tmp);
-		tmp = NULL;
-		return (0);
-	}
-	return (get_line(tmp, line, &i));
+	*line = get_line(&lst, &n);
+	return (n);
 }

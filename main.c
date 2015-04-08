@@ -19,24 +19,66 @@
 int
 main(void)
 {
-	char		*buf;
-	int			ret;
-	int			fd;
+	int		fd;
+	char	*buf;
+	int		ret;
 
-	if (!(fd = open("get_next_line.c", O_RDONLY)))
+	if (!(fd = open("test", O_RDONLY)))
 	{
 		printf("Error bitch !\n");
 		return (-1);
 	}
+
 	while ((ret = get_next_line(fd, &buf)) > 0)
 	{
 		printf("%s\n", buf);
+		//printf("ret = %d\n", ret);
 		free(buf);
-		buf = NULL;
 	}
-	close(fd);
 	return (0);
 }
+
+// #include <string.h>
+// int
+// main(void)
+// {
+// 	char 	*line;
+// 	int		out;
+// 	int		p[2];
+// 	char 	*str;
+// 	int		len = 50;
+
+// 	str = (char *)malloc(1000 * 1000);
+// 	*str = '\0';
+// 	while (len--)
+// 		strcat(str, "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur in leo dignissim, gravida leo id, imperdiet urna. Aliquam magna nunc, maximus quis eleifend et, scelerisque non dolor. Suspendisse augue augue, tempus");
+// 	out = dup(1);
+// 	pipe(p);
+// 	dup2(p[1], 1);
+
+// 	if (str)
+// 		write(1, str, strlen(str));
+// 	close(p[1]);
+// 	dup2(out, 1);
+// 	get_next_line(p[0], &line);
+// 	if (strcmp(line, str) == 0)
+// 		printf("ok\n");
+// }
+
+// int
+// main(void)
+// {
+// 	char		*buf;
+// 	int			ret;
+
+// 	while ((ret = get_next_line(0, &buf)) > 0)
+// 	{
+// 		printf("%s\n", buf);
+// 		free(buf);
+// 		buf = NULL;
+// 	}
+// 	return (0);
+// }
 
 /*#include <string.h>
 int

@@ -13,19 +13,20 @@
 #include <libft.h>
 #include <stdlib.h>
 
-void				lst_free(t_list *lst, const int free_data)
+void				lst_free(t_list **lst, const int free_data)
 {
 	t_list			*tmp;
 
-	while (lst != NULL)
+	while (*lst != NULL)
 	{
-		if (lst->next == NULL)
+		if ((*lst)->next == NULL)
 			break ;
-		tmp = lst->next;
+		tmp = (*lst)->next;
 		if (free_data == 1)
-			free(lst->data);
-		free(lst);
-		lst = tmp;
+			free((*lst)->data);
+		free(*lst);
+		*lst = tmp;
 	}
-	free(lst);
+	free(*lst);
+	*lst = NULL;
 }

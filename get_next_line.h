@@ -13,7 +13,7 @@
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 
-# define BUF_SIZE 4096
+# define BUFF_SIZE 99999
 
 typedef struct		s_gnl
 {
