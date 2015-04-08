@@ -16,27 +16,41 @@
 #include "get_next_line.h"
 #include <stdlib.h>
 
-int
-main(void)
-{
-	int		fd;
-	char	*buf;
-	int		ret;
+int main(int ac, char **av) 
+{ 
+char *line; 
+int fd;
 
-	if (!(fd = open("test", O_RDONLY)))
-	{
-		printf("Error bitch !\n");
-		return (-1);
-	}
-
-	while ((ret = get_next_line(fd, &buf)) > 0)
-	{
-		printf("%s\n", buf);
-		//printf("ret = %d\n", ret);
-		free(buf);
-	}
-	return (0);
+(void)ac;
+(void)av;
+fd = open(av[1], O_RDONLY);
+while (get_next_line(fd, &line) == 1)
+    printf("%s\n", line);
+return (0);
 }
+
+
+// int
+// main(void)
+// {
+// 	int		fd;
+// 	char	*buf;
+// 	int		ret;
+
+// 	if (!(fd = open("test", O_RDONLY)))
+// 	{
+// 		printf("Error bitch !\n");
+// 		return (-1);
+// 	}
+
+// 	while ((ret = get_next_line(fd, &buf)) > 0)
+// 	{
+// 		printf("%s\n", buf);
+// 		//printf("ret = %d\n", ret);
+// 		free(buf);
+// 	}
+// 	return (0);
+// }
 
 // #include <string.h>
 // int
