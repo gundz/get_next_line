@@ -13,9 +13,9 @@
 #include <libft.h>
 #include <unistd.h>
 #include <stdlib.h>
-#include "get_next_line.h"
-#include <stdio.h>
-int					find_n(t_list *lst, int eof)
+#include <get_next_line.h>
+
+int					find_n(t_list *lst)
 {
 	int				i;
 	int				j;
@@ -37,85 +37,55 @@ int					find_n(t_list *lst, int eof)
 		lst = lst->next;
 		i += j;
 	}
-	if (eof == 0)
-		return (lst_csize(lst));
 	if (str[j] == '\0')
 		return (-1);
 	return (i);
 }
 
-char				*get_line(t_list **lst, int *n)
+char				*get_line(t_list **lst)
 {
 	char			*ret;
 	char			*tmp;
-	int				size;
-	int				n2;
+	int				n_pos;
 
+	if ((n_pos = find_n(*lst)) == -1)
+	{
+		ret = lst_to_char(*lst);
+		lst_free(lst, 1);
+		return (ret);
+	}
 	tmp = lst_to_char(*lst);
-	n2 = find_n(*lst, *n);
+	ret = ft_strsub(tmp, 0, n_pos);
 	lst_free(lst, 1);
-	ret = ft_strsub(tmp, 0, n2);
-	if (tmp[n2] == '\n')
-		n2++;
-	size = ft_strlen(tmp + n2);
-	lst_push_back(lst, ft_strsub(tmp + n2, 0, size));
+	lst_push_back(lst, ft_strsub(tmp, n_pos + 1, ft_strlen(tmp) - n_pos));
 	free(tmp);
-	// tmp = (*lst)->data;
-	// n2 = 0;
-	// while (tmp[n2] != '\0')
-	// {
-	// 	if (tmp[n2] != '\n')
-	// 		n2++;
-	// }
-	if (n2 > 0)
-		*n = 1;
-	else
-		*n = 0;
 	return (ret);
 }
 
 int					get_next_line(int const fd, char **line)
 {
-	int				n;
+	int				n2;
 	char			buf[BUFF_SIZE + 1];
 	static t_list	*lst = NULL;
 
+	n2 = 0;
 	if (line == NULL || fd < 0)
 		return (-1);
-	n = 0;
-	while ((n = read(fd, &buf, BUFF_SIZE)) > 0)
+	while ((n2 = read(fd, &buf, BUFF_SIZE)))
 	{
-		buf[n] = '\0';
+		if (n2 == -1)
+			return (-1);
+		if (n2 == 0)
+			return (0);
+		buf[n2] = '\0';
 		lst_push_back(&lst, ft_strdup(buf));
-		if (find_n(lst, n) >= 0)
+		if (find_n(lst) >= 0)
 			break ;
 	}
-	if (n == -1)
-		return (-1);
-	*line = get_line(&lst, &n);
-	return (n);
+	if (lst == NULL)
+		return (0);
+	*line = get_line(&lst);
+	if (lst == NULL && n2 == 0)
+		return (0);
+	return (1);
 }
-
-// "test12\ncl"
-// BUFF_SIZE = 4
-// while (n = read(buf, BUFF_SIZE))
-// {
-// 	if (n <= 0)
-// 		return (n);
-// 	buf[n] = '\0';
-// 	while (buf[i] != '\0' && buf[i] != '\n')
-// 		i++;
-// 	if (buf[i] == '\n')
-// 		break ;
-// 	lst_push_back(buf);
-// }
-// if (buf[i] == '\0')
-// {
-// 	*line = lst_to_char(lst);
-// 	lst_free(lst);
-// 	return (1);
-// }
-// else
-// {
-// 	*line = ft_strsub()
-// }
