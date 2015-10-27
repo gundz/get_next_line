@@ -1,34 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lst_free.c                                         :+:      :+:    :+:   */
+/*   ft_strrev.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fgundlac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/03/18 09:38:04 by fgundlac          #+#    #+#             */
-/*   Updated: 2015/03/18 09:38:05 by fgundlac         ###   ########.fr       */
+/*   Created: 2013/12/20 14:57:24 by fgundlac          #+#    #+#             */
+/*   Updated: 2015/04/01 23:37:03 by fgundlac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libft.h>
 #include <stdlib.h>
 
-void				lst_free(t_list **lst, const int free_data)
+char			*ft_strrev(char *str)
 {
-	t_list			*tmp;
+	char		*rev;
+	size_t		len;
+	int			i;
 
-	while (*lst != NULL)
+	i = 0;
+	len = ft_strlen(str);
+	if (!(rev = (char *)malloc(sizeof(char) * (len + 1))))
+		return (NULL);
+	while (len--)
 	{
-		if ((*lst)->next == NULL)
-			break ;
-		tmp = (*lst)->next;
-		if (free_data == 1)
-			free((*lst)->data);
-		free(*lst);
-		*lst = tmp;
+		rev[i] = str[len];
+		i++;
 	}
-	if (free_data == 1)
-		free((*lst)->data);
-	free(*lst);
-	*lst = NULL;
+	rev[i] = '\0';
+	return (rev);
 }

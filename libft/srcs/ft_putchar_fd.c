@@ -1,34 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lst_free.c                                         :+:      :+:    :+:   */
+/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fgundlac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/03/18 09:38:04 by fgundlac          #+#    #+#             */
-/*   Updated: 2015/03/18 09:38:05 by fgundlac         ###   ########.fr       */
+/*   Created: 2014/11/11 18:28:53 by fgundlac          #+#    #+#             */
+/*   Updated: 2014/11/11 18:28:53 by fgundlac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libft.h>
-#include <stdlib.h>
+#include <unistd.h>
 
-void				lst_free(t_list **lst, const int free_data)
+void					ft_putchar_fd(char c, int fd)
 {
-	t_list			*tmp;
-
-	while (*lst != NULL)
-	{
-		if ((*lst)->next == NULL)
-			break ;
-		tmp = (*lst)->next;
-		if (free_data == 1)
-			free((*lst)->data);
-		free(*lst);
-		*lst = tmp;
-	}
-	if (free_data == 1)
-		free((*lst)->data);
-	free(*lst);
-	*lst = NULL;
+	write(fd, &c, 1);
 }

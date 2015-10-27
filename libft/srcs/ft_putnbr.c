@@ -1,34 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lst_free.c                                         :+:      :+:    :+:   */
+/*   ft_putnbr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fgundlac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/03/18 09:38:04 by fgundlac          #+#    #+#             */
-/*   Updated: 2015/03/18 09:38:05 by fgundlac         ###   ########.fr       */
+/*   Created: 2014/11/11 18:29:14 by fgundlac          #+#    #+#             */
+/*   Updated: 2014/11/11 18:29:15 by fgundlac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libft.h>
-#include <stdlib.h>
+#include <unistd.h>
 
-void				lst_free(t_list **lst, const int free_data)
+void					ft_putnbr(int nbr)
 {
-	t_list			*tmp;
-
-	while (*lst != NULL)
+	if (nbr < 0)
 	{
-		if ((*lst)->next == NULL)
-			break ;
-		tmp = (*lst)->next;
-		if (free_data == 1)
-			free((*lst)->data);
-		free(*lst);
-		*lst = tmp;
+		write(1, "-", 1);
+		nbr = -nbr;
 	}
-	if (free_data == 1)
-		free((*lst)->data);
-	free(*lst);
-	*lst = NULL;
+	if (nbr < 10)
+		ft_putchar(nbr + '0');
+	else
+	{
+		ft_putnbr(nbr / 10);
+		ft_putnbr(nbr % 10);
+	}
 }

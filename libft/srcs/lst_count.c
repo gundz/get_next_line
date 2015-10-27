@@ -1,34 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lst_free.c                                         :+:      :+:    :+:   */
+/*   lst_count.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fgundlac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/03/18 09:38:04 by fgundlac          #+#    #+#             */
-/*   Updated: 2015/03/18 09:38:05 by fgundlac         ###   ########.fr       */
+/*   Created: 2014/11/11 18:31:18 by fgundlac          #+#    #+#             */
+/*   Updated: 2014/11/11 18:31:19 by fgundlac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libft.h>
-#include <stdlib.h>
+#include <stddef.h>
 
-void				lst_free(t_list **lst, const int free_data)
+unsigned int					lst_count(t_list *lst)
 {
-	t_list			*tmp;
+	t_list						*lstwalker;
+	unsigned int				ret;
 
-	while (*lst != NULL)
+	ret = 0;
+	lstwalker = lst;
+	while (lstwalker != NULL)
 	{
-		if ((*lst)->next == NULL)
+		++ret;
+		if (lstwalker->next == NULL)
 			break ;
-		tmp = (*lst)->next;
-		if (free_data == 1)
-			free((*lst)->data);
-		free(*lst);
-		*lst = tmp;
+		lstwalker = lstwalker->next;
 	}
-	if (free_data == 1)
-		free((*lst)->data);
-	free(*lst);
-	*lst = NULL;
+	return (ret);
 }

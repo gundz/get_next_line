@@ -1,34 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lst_free.c                                         :+:      :+:    :+:   */
+/*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fgundlac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/03/18 09:38:04 by fgundlac          #+#    #+#             */
-/*   Updated: 2015/03/18 09:38:05 by fgundlac         ###   ########.fr       */
+/*   Created: 2014/11/11 18:29:54 by fgundlac          #+#    #+#             */
+/*   Updated: 2014/11/11 18:29:55 by fgundlac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libft.h>
 #include <stdlib.h>
 
-void				lst_free(t_list **lst, const int free_data)
+char							*ft_strjoin(char *dest, char *src)
 {
-	t_list			*tmp;
+	unsigned int				len1;
+	unsigned int				len2;
+	char						*ret;
 
-	while (*lst != NULL)
-	{
-		if ((*lst)->next == NULL)
-			break ;
-		tmp = (*lst)->next;
-		if (free_data == 1)
-			free((*lst)->data);
-		free(*lst);
-		*lst = tmp;
-	}
-	if (free_data == 1)
-		free((*lst)->data);
-	free(*lst);
-	*lst = NULL;
+	len1 = ft_strlen(dest);
+	len2 = ft_strlen(src);
+	if (!(ret = (char *)malloc(sizeof(char) * (len1 + len2 + 1))))
+		return (NULL);
+	ret = ft_strcat(dest, src);
+	return (ret);
 }

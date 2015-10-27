@@ -24,11 +24,13 @@ int fd;
 (void)ac;
 (void)av;
 fd = open(av[1], O_RDONLY);
-while (get_next_line(fd, &line) == 1)
+while (get_next_line(fd, &line) > 0)
+{
     printf("%s\n", line);
+    free(line);
+}
 return (0);
 }
-
 
 // int
 // main(void)

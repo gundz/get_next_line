@@ -1,34 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lst_free.c                                         :+:      :+:    :+:   */
+/*   ft_strcat.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fgundlac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/03/18 09:38:04 by fgundlac          #+#    #+#             */
-/*   Updated: 2015/03/18 09:38:05 by fgundlac         ###   ########.fr       */
+/*   Created: 2014/11/11 18:29:41 by fgundlac          #+#    #+#             */
+/*   Updated: 2014/11/11 18:29:43 by fgundlac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libft.h>
-#include <stdlib.h>
 
-void				lst_free(t_list **lst, const int free_data)
+char							*ft_strcat(char *dest, const char *const src)
 {
-	t_list			*tmp;
+	unsigned int				len1;
+	unsigned int				len2;
 
-	while (*lst != NULL)
+	len1 = 0;
+	while (dest[len1] != '\0')
 	{
-		if ((*lst)->next == NULL)
-			break ;
-		tmp = (*lst)->next;
-		if (free_data == 1)
-			free((*lst)->data);
-		free(*lst);
-		*lst = tmp;
+		dest[len1] = dest[len1];
+		++len1;
 	}
-	if (free_data == 1)
-		free((*lst)->data);
-	free(*lst);
-	*lst = NULL;
+	len2 = 0;
+	while (src[len2] != '\0')
+	{
+		dest[len1] = src[len2];
+		++len1;
+		++len2;
+	}
+	dest[len1] = '\0';
+	return (dest);
 }
